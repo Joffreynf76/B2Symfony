@@ -1,0 +1,9 @@
+{% if message is defined %}
+{% for messages in message %}
+<p>{{ messages.content }}</p>
+    {% if messages.status == null %}
+        <a href="{{ path('read_message', {'id': messages.id}) }}">Passer en lu</a>
+    {% endif %}
+{% endfor %}
+{% endif %}
+<a href="{{ path('message') }}">Retour</a>
