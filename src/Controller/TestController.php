@@ -75,7 +75,7 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
      * @return Response
      * @Route("/admin/2fa/check",name="check_2fa")
      */
-    public function check2fa(Request $request, GoogleAuthenticatorInterface $authenticator, TwoFactorInterface $twoFactor)
+    public function check2fa(Request $request, GoogleAuthenticatorInterface $authenticator)
     {
         $form = $this->createFormBuilder()
             ->add('code', TextType::class)
@@ -90,12 +90,16 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
             $user = $this->getUser();
             $id = $user->getId();
 
-            $currentUser = $this->getDoctrine()->getRepository(Users::class)->find($id);
-            //$code = $currentUser->getGoogleAuthenticatorSecret();
-            $code = $twoFactor->getGoogleAuthenticatorSecret();
 
-            if($authenticator->checkCode($key,$code)){
+
+            $currentUser = $this->getDoctrine()->getRepository(Users::class)->find($id);
+            $code = $currentUser->getGoogleAuthenticatorSecret();
+
+
+            if($authenticator->checkCode($user,$key)){
                 echo 'Code ok !!!';
+            } else {
+                echo 'Erreur code';
             }
 
         }
