@@ -5,6 +5,10 @@ sonata_admin:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
 
+    templates:
+        dashboard: 'dashboard2.html.twig'
+        user_block: 'user_block2.html.twig'
+
 sonata_block:
     blocks:
         sonata.admin.block.admin_list:

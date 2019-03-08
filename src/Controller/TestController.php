@@ -6,6 +6,7 @@ use App\Entity\Message;
 use App\Entity\Users;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -17,7 +18,10 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 
   class TestController extends AbstractController
 {
-    /**
+
+
+
+      /**
      * @Route("/test", name="test")
      */
     public function index()
@@ -98,8 +102,14 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 
             if($authenticator->checkCode($user,$key)){
                 echo 'Code ok !!!';
+                $session = $this->get('session');
+                $session->set('check',1);
+
+
             } else {
-                echo 'Erreur code';
+                $this->addFlash('danger','Erreur code');
+
+                
             }
 
         }

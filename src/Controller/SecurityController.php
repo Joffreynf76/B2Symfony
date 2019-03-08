@@ -29,7 +29,7 @@ class SecurityController extends AbstractController
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
      * @throws \Exception
-     * @Route("/admin/add", name="add_admin")
+     * @Route("/security/add", name="add_admin")
      */
     public function addAdmin(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
