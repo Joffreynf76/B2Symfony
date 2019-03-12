@@ -4,6 +4,28 @@ sonata_admin:
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
+            -
+                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                position: top                        # zone in the dashboard
+                type:     sonata.admin.block.stats   # block id
+                settings:
+                    code:  admin.users    # admin code - service id
+                    icon:  fa-magic                  # font awesome icon
+                    text:  Nombre d'utilisateurs
+                    color: bg-yellow                 # colors: bg-green, bg-red and bg-aqua
+                    filters:                         # filter values
+                        edited: { value: 1 }
+            -
+              class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+              position: top                        # zone in the dashboard
+              type:     sonata.admin.block.stats   # block id
+              settings:
+                  code:  admin.message    # admin code - service id
+                  icon:  fa-magic                  # font awesome icon
+                  text:  Nombre de message
+                  color: bg-primary                # colors: bg-green, bg-red and bg-aqua
+                  filters:                         # filter values
+                      edited: { value: 1 }
 
     templates:
         dashboard: 'dashboard2.html.twig'
@@ -14,4 +36,6 @@ sonata_block:
         sonata.admin.block.admin_list:
             contexts: [admin]
         sonata.admin.block.search_result:
+            contexts: [admin]
+        sonata.admin.block.stats:
             contexts: [admin]
