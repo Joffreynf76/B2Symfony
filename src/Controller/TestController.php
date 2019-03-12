@@ -82,8 +82,9 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
     public function check2fa(Request $request, GoogleAuthenticatorInterface $authenticator)
     {
         $form = $this->createFormBuilder()
-            ->add('code', TextType::class)
-            ->add('check', SubmitType::class, ['label' => 'Vérifier code'])
+            ->add('code', TextType::class,[
+                'attr'=>['class'=>'form-control']
+            ])
             ->getForm();
         $form->handleRequest($request);
 
