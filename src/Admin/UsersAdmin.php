@@ -10,7 +10,6 @@ namespace App\Admin;
 
 
  use App\Entity\Users;
- use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
  use Sonata\AdminBundle\Admin\AbstractAdmin;
  use Sonata\AdminBundle\Datagrid\DatagridMapper;
  use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -19,7 +18,7 @@ namespace App\Admin;
  use Symfony\Component\Form\Extension\Core\Type\DateType;
  use Symfony\Component\Form\Extension\Core\Type\HiddenType;
  use Symfony\Component\Form\Extension\Core\Type\TextType;
- use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
 
  final class UsersAdmin extends AbstractAdmin
 {

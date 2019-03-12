@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: joffrey
- * Date: 2019-03-06
- * Time: 21:38
- */
+
 
 namespace App\Form\DataTransformer;
 
@@ -35,21 +30,19 @@ class SenderToUsersTransformer implements DataTransformerInterface
 
     public function reverseTransform($senderNumber)
     {
-        // no issue number? It's optional, so that's ok
+
         if (!$senderNumber) {
             return;
         }
 
         $sender= $this->entityManager
             ->getRepository(Users::class)
-            // query for the issue with this id
+
             ->find($senderNumber)
         ;
 
         if (null === $sender) {
-            // causes a validation error
-            // this message is not shown to the user
-            // see the invalid_message option
+
             throw new TransformationFailedException(sprintf(
                 'An user with number "%s" does not exist!',
                 $senderNumber

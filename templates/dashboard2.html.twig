@@ -11,13 +11,13 @@ file that was distributed with this source code.
 
 
 
-{% extends app.session.get('check') == 1 ? base_template : 'uncheck.html.twig' %}
+{% extends  base_template %}
 
 
     {% block title %}{{ 'title_dashboard'|trans({}, 'SonataAdminBundle') }}{% endblock%}
     {% block breadcrumb %}{% endblock %}
     {% block content %}
-        {% if app.session.get('check') == 1 %}
+
 
 
     {% set has_left = false %}
@@ -132,7 +132,7 @@ file that was distributed with this source code.
 
     {{ sonata_block_render_event('sonata.admin.dashboard.bottom', { 'admin_pool': sonata_admin.adminPool }) }}
 
-        {% endif %}
+
     {% endblock %}
 
 
