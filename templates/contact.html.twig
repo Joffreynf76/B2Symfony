@@ -1,0 +1,61 @@
+<div id="dynamic">
+
+
+    {{ form_row(form.admin) }}
+
+    {{ form_row(form.referent) }}
+   <div id="test">
+
+   </div>
+    {{ form_row(form.email) }}
+    {{ form_row(form.objet) }}
+    {{ form_row(form.message) }}
+
+
+
+    {{ form_row(form.envoyer) }}
+
+
+
+
+</div>
+
+
+<script
+        src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script>
+    $('#contact_referent').click(function(){
+        cochee = $(this).is(':checked');
+
+
+        if (cochee === true) {
+            $(function(){
+                $.ajax({
+
+                    cache: false,
+                    success: function() {
+                        $("#test").append('{{ form_row(form.ville) }}');
+
+                    },
+                    error: function(XMLHttpRequest,textStatus, errorThrown){
+                        alert(textStatus);
+                    },
+                });
+                return false;
+            });
+        }
+
+        else {
+            $(function(){
+                $("#test").empty();
+
+                return false;
+            });
+        }
+
+    });
+
+
+</script>

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Message;
 use App\Entity\Users;
+use App\Form\ContactType;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -117,6 +118,26 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 
         return $this->render('security/2fa.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+      /**
+       * @return Response
+       * @Route("index/contact",name="contact")
+       */
+    public function contact(Request $request)
+    {
+        $form = $this->createForm(ContactType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted()){
+            $data = $form->getData();
+            $choix = $data['destinataire'];
+
+
+        }
+
+        return $this->render('contact.html.twig',[
+            'form'=>$form->createView()
         ]);
     }
 
