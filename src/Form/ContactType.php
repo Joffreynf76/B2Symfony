@@ -5,17 +5,16 @@ namespace App\Form;
 
 
 use App\Entity\Users;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
+
 
 class ContactType extends AbstractType
 {
@@ -34,9 +33,16 @@ class ContactType extends AbstractType
             ->add('ville',EntityType::class,[
                 'class'=>Users::class,
                 'choice_label'=>'city',
-                'choice_value'=>'email'
+                'required'=>false,
+                'query_builder' => function(EntityRepository $er) {
+
+                    return $er->createQueryBuilder('user')
+                        ->where('user.email != :email')
+                        ->setParameter('email', 'admin@greenworld.com');
+                },
             ])
-            ->add('envoyer', SubmitType::class)
+
+
 
 
         ;

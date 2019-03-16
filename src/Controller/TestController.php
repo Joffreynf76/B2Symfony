@@ -125,14 +125,49 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
        * @return Response
        * @Route("index/contact",name="contact")
        */
-    public function contact(Request $request)
+    public function contact(Request $request, \Swift_Mailer $mailer)
     {
         $form = $this->createForm(ContactType::class);
         $form->handleRequest($request);
         if($form->isSubmitted()){
             $data = $form->getData();
-            $choix = $data['destinataire'];
+            $admin = $data['admin'];
+            $referent = $data['referent'];
+            $email = $data['email'];
+            $objet = $data['objet'];
+            $message = $data['message'];
 
+            if($admin === true) {
+                $mail = (new \Swift_Message($objet))
+                    ->setFrom($email)
+                    ->setTo('admin@greenworld.com')
+                    ->setBody($message
+
+                    );
+
+
+                $mailer->send($mail);
+                $this->addFlash('success','Message envoyé avec succès !');
+            }
+
+            if($referent === true){
+                $ville = $data['ville'];
+                $currentReferent =$this->getDoctrine()->getRepository(Users::class)->find($ville);
+                $emailReferent = $currentReferent->getEmail();
+
+
+                $mail2 = (new \Swift_Message($objet))
+                    ->setFrom($email)
+                    ->setTo($emailReferent)
+                    ->setBody($message
+
+                    );
+
+
+                $mailer->send($mail2);
+                $this->addFlash('success2','Message envoyé avec succès !');
+
+            }
 
         }
 

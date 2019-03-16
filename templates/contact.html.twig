@@ -1,6 +1,6 @@
 <div id="dynamic">
 
-
+{{ form_start(form) }}
     {{ form_row(form.admin) }}
 
     {{ form_row(form.referent) }}
@@ -13,9 +13,18 @@
 
 
 
-    {{ form_row(form.envoyer) }}
+    <input type="submit" value="Envoyer" id="send">
 
-
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success2') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 
 
 </div>
@@ -56,6 +65,12 @@
         }
 
     });
+
+
+
+
+
+
 
 
 </script>
