@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Incidents;
 use App\Entity\Message;
+use App\Entity\Trashs;
 use App\Entity\Users;
 use App\Form\ContactType;
+use App\Form\DataTransformer\TrashTransformer;
+use App\Form\IncidentsType;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -174,6 +178,42 @@ use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
         return $this->render('contact.html.twig',[
             'form'=>$form->createView()
         ]);
+    }
+
+
+      /**
+       * @Route("bennes/add_incidents/{reference_benne}",name="add_incidents")
+       */
+    public function addIncidents(Request $request, $reference_benne, TrashTransformer $transformer)
+    {
+        $form = $this->createForm(IncidentsType::class);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $data = $form->getData();
+            $incident = new Incidents();
+            $ref = random_bytes(8);
+            $trash = $this->getDoctrine()->getRepository(Trashs::class)->findOneBy(['reference'=>$reference_benne]);
+            $idTrash = $trash->getId();
+            $idTransform = $transformer->reverseTransform($idTrash);
+
+
+            $cityTrash = $trash->getCity();
+
+            $incident->setEmail($data['email']);
+            $incident->setDescription($data['description']);
+            $incident->setDate(new \DateTime('now'));
+            $incident->setReference(substr($cityTrash, 0, 3 ) . 'ver' . bin2hex($ref));
+            $incident->setTrash($idTransform);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($incident);
+            $em->flush();
+
+            $this->addFlash('success','Incident enregistré avec succès !');
+            return $this->redirect($request->getUri());
+        }
+        return $this->render('incidents.html.twig',['form'=>$form->createView()]);
     }
 
 

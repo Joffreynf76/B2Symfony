@@ -116,66 +116,6 @@ class Incidents
         return $this;
     }
 
-    public function getCity(): ?string
-    {
-        return $this->city;
-    }
-
-    public function setCity(string $city): self
-    {
-        $this->city = $city;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getLatitude(): ?float
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(?float $latitude): self
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(?float $longitude): self
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
-    public function getAltitude(): ?float
-    {
-        return $this->altitude;
-    }
-
-    public function setAltitude(?float $altitude): self
-    {
-        $this->altitude = $altitude;
-
-        return $this;
-    }
-
     public function getDescription(): ?string
     {
         return $this->description;

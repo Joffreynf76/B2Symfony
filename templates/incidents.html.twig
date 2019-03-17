@@ -1,0 +1,15 @@
+<h2>Ajout d'incidents</h2>
+
+{{ form_start(form) }}
+
+{{ form_row(form.email) }}
+{{ form_row(form.description) }}
+{{ form_row(form.picture) }}
+
+{{ form_end(form) }}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">
+        {{ message }}
+    </div>
+{% endfor %}
